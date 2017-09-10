@@ -48,6 +48,7 @@ TAIL = '''
 	    <br/>Đăng ký học lập trình Python tại <a href="https://pymi.vn">PyMivn</a>
             <br/>Học lập trình Python chất lượng số 1 Việt Nam © 2017.
             <br/>Tự học thì <a href="http://pymi.vn/tutorial/">bấm vào đây nhé ;)</a>
+            <br/>Xem <a href="https://github.com/pymivn/hnpy" target="_blank">source code</a>
             <br/>Rendered at {time} GMT+7.
         </footer>
 

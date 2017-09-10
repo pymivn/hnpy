@@ -14,3 +14,7 @@ deploy:
 run:
 	# Can be timeout as default HTTP timeout = 60, job run > that
 	aws lambda invoke --function-name ${APP} log
+
+ci:
+	flake8 --exclude template.py *.py hnpy/
+	python cli.py

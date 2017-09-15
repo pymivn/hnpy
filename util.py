@@ -36,8 +36,8 @@ def write_new_stories(newstories, oldstory, datapath, condition=None):
     for s in newstories:
         if s['id'] not in oldstory:
             if condition(s):
-                append_csv(datapath, s)
                 yield s
+                append_csv(datapath, s)
 
 
 def get_stories(csvpath):

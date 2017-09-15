@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 # ython will match python, jython ...
 PYTHON_KEYWORDS = [
     'ython', 'pypy', 'scipy', 'numpy', 'pandas',
-    'flask', 'django',
+    'flask', 'django', 'pypi',
 ]
 
 

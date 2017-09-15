@@ -34,7 +34,7 @@ def slack_send_new_story(url, datapath='/tmp/data.csv', nosend=False):
         else:
             r = requests.post(url, json=message)
             if r.status_code != 200:
-                print(r, r.content)
+                raise Exception("Status %s - content %s" % (r, r.content))
             else:
                 print("Sent %s", message)
 

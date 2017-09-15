@@ -12,6 +12,9 @@ def score_filter(s):
 
 
 def slack_send_new_story(url, datapath='/tmp/data.csv', nosend=False):
+    if not url:
+        nosend = True
+
     current_data = util.read_csv(datapath)
     print("Data loaded from existing db: %s" % current_data)
 
@@ -62,7 +65,8 @@ def lambda_handler(event, context):
 
 
 def test():
-    slack_send_new_story('', datapath='data.csv', nosend=True)
+    url = os.environ.get("SLACK_HOOK", '')
+    slack_send_new_story(url, datapath='data.csv')
 
 
 if __name__ == "__main__":

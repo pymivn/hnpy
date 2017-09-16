@@ -24,9 +24,10 @@ def slack_send_new_story(url, datapath='/tmp/data.csv', nosend=False):
     for s in util.write_new_stories(newstories, current_data,
                                     datapath, score_filter):
 
-        message = {"text": "{} points: {} - {}".format(
-                   s['score'], s['title'], s['url'])
-                   }
+        message = "{} points: {} - {} ({})".format(
+            s['score'], s['title'], s['url'], util.get_hn_url(s['id'])
+        )
+        message = {"text": message}
         for_print.append("Sent %s to %s" % (message, url))
 
         if nosend:

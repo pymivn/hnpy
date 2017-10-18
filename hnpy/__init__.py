@@ -66,10 +66,11 @@ def get_stories_on_topic(keywords=None):
     for story in top_stories():
         logger.debug("Checking story %d %s: %s",
                      story['score'], story['title'], story['url'])
-        if keywords is None:
-            keywords = []
-        story_title = story['title']
-        keywords = [k.lower() for k in keywords]
-        for kwd in keywords:
-            if kwd in story_title.lower():
-                yield story
+        if keywords:
+            keywords = [k.lower() for k in keywords]
+            story_title = story['title']
+            for kwd in keywords:
+                if kwd in story_title.lower():
+                    yield story
+        else:
+            yield story

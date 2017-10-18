@@ -22,6 +22,7 @@ def slack_send_new_story(url, datapath='/tmp/data.csv',
         nosend = True
 
     current_data = util.read_csv(datapath)
+    print("Hook URL: %s" % url[-10:])
     print("Data loaded from existing db: %s" % current_data)
 
     newstories = hnpy.get_stories_on_topic(topics)
@@ -36,16 +37,19 @@ def slack_send_new_story(url, datapath='/tmp/data.csv',
             s['score'], s['title'], s['url'], util.get_hn_url(s['id'])
         )
         message = {"text": message}
-        for_print.append("Sent %s to %s" % (message, url))
+        for_print.append("Message: %s" % (message))
 
         if nosend:
+            print("nosend set to %s, url: %s" % (nosend, url))
             continue
         else:
             r = requests.post(url, json=message)
             if r.status_code != 200:
                 raise Exception("Status %s - content %s" % (r, r.content))
             else:
-                print("Sent %s", message)
+                if r.text != 'ok':
+                    raise Exception(r.text)
+                print("Sent to real slack %s: got %s" % (message, r.text[:99]))
 
     for msg in for_print:
         print(msg)
@@ -90,7 +94,11 @@ def send_top_hn(event, context):
 def test():
     import logging
     logging.basicConfig(level=logging.INFO)
-    send_top_hn(None, None)
+    url = ''
+    datapath = 'tops.csv'
+    slack_send_new_story(url, datapath,
+                         topics=None,
+                         filter_=lambda s: s['score'] > 200)
 
 
 if __name__ == "__main__":
